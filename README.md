@@ -1,52 +1,54 @@
 # visualization-innovation
 
-科研可视化创新设计 skill：图表二创、新视图发明、交互与多图联动创新、证据驱动的视觉叙事，以及面向发表的 novelty 边界评估。
+[English](README.md) | [中文](README.zh-CN.md)
 
-定位是**机制层的创新设计**——从分析问题出发设计有用、可测试的视觉/交互机制，而不是换配色式的样式打磨。数据语义与学术诚信受严格约束：不虚称 first-ever / SOTA，区分 stored-query / simulation / real recompute，文献线索须回溯一手来源后才能引用。
+An Agent Skill for **mechanism-level innovation in research visualization**: chart redesign (图表二创), new chart families, interaction and coordinated-view innovation, evidence-based visual stories, and prior-art-aware novelty claims.
 
-## 触发场景
+The skill designs **useful, testable mechanisms** out of analytical problems — not styling polish. Data semantics and research integrity are hard-constrained: no unverified first-ever/SOTA claims, stored-query vs. simulation vs. real recomputation kept distinct, and bundled literature leads must be reverified against primary sources before citation.
 
-- 二创一张参考图表（拆解 → 继承/改变/增益/成本账本）
-- 发明新视图或新图表族（视觉语法 + 解码规则 + 基线对比）
-- 生成机制上互异的多方案（Familiar+ / Recombined / Speculative 三档发散）
-- 设计交互与联动视图（可测试的跨视图链接契约）
-- 组织多面板布局（互补证据角色与依赖图）
-- 评估发表新颖性（先例检索台账 + 有边界的 claim）
+## When it triggers
 
-SKILL.md 的 description 中含中英触发词（图表二创 / 新视图 / 交互创新 / 多图联动创新），安装后由 agent 自动路由。
+- Redesign a reference chart (decompose → inherited/changed/gained/cost ledger)
+- Invent a new view or chart family (visual grammar + decoding rules + baseline comparison)
+- Generate mechanism-distinct alternatives (Familiar+ / Recombined / Speculative divergence)
+- Design interaction and linked views (testable cross-view link contracts)
+- Organize panel layouts (complementary evidence roles and dependency maps)
+- Assess publication novelty (prior-art search ledger + bounded claim)
 
-## 目录结构
+The SKILL.md description carries Chinese and English trigger keywords (图表二创 / 新视图 / 交互创新 / 多图联动创新) for automatic agent routing.
+
+## Layout
 
 ```
-SKILL.md                  # 入口：路由表 + 执行流程 + 护栏
-references/               # 按任务加载的方法论文档（反模式、评估量表、先例检索等）
-assets/                   # 候选卡 / 设计简报 / 联动契约模板
-scripts/                  # 见下
-agents/openai.yaml        # agent 平台元信息
+SKILL.md                  # Entry: routing table + workflow + guardrails
+references/               # Task-scoped methodology docs (anti-patterns, rubrics, prior-art search)
+assets/                   # Candidate card / design brief / coordination-contract templates
+scripts/                  # See below
+agents/openai.yaml        # Agent-platform metadata
 ```
 
-## 脚本
+## Scripts
 
-均需 Python 3，无第三方依赖（`validate_skill.py` 需 PyYAML）：
+Python 3, no third-party deps (`validate_skill.py` needs PyYAML):
 
 ```bash
-python scripts/scaffold_innovation_brief.py --help   # 拷贝设计简报模板
-python scripts/score_candidates.py --help            # 候选方案诊断分流（gate 制，不做自动排名）
-python scripts/validate_skill.py <skill_dir>         # skill 结构校验
-python scripts/package_skill.py --help               # 打包导出
+python scripts/scaffold_innovation_brief.py --help   # Copy the design-brief template
+python scripts/score_candidates.py --help            # Diagnostic candidate triage (gates, no auto-ranking)
+python scripts/validate_skill.py <skill_dir>         # Structural skill validation
+python scripts/package_skill.py --help               # Export packaging
 ```
 
-## 安装
+## Install
 
 ```bash
 git clone https://github.com/techdou/visualization-innovation.git ~/.agents/skills/visualization-innovation
 ```
 
-或下载 zip 解压到 `~/.agents/skills/` 下。重启会话后生效。
+Or unzip a release into `~/.agents/skills/`. Restart your agent session to activate.
 
-## 配套 skill
+## Companion skill
 
-与 [research-visual-analytics](https://github.com/techdou/research-visual-analytics) 成对使用：本 skill 负责创新设计，对方负责编码正确性与证据审查；两者共享 coordination-contract 契约模板，也可各自独立工作。
+Pairs with [research-visual-analytics](https://github.com/techdou/research-visual-analytics): this skill owns innovative design, the companion owns correctness and evidence review. Both share the coordination-contract template and also work standalone.
 
 ## License
 
