@@ -1,0 +1,14 @@
+interface:
+  display_name: Visualization Innovation
+  short_description: Invent and test useful visual and interaction mechanisms
+  default_prompt: Use $visualization-innovation to redesign this research figure and
+    specify a testable linked-view mechanism.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

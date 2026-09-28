@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "data_version": "example-fixture-v1",
+  "views": [
+    {
+      "id": "disagreement",
+      "grain": "sample",
+      "key": "sample_id"
+    },
+    {
+      "id": "class_profile",
+      "grain": "label membership",
+      "key": "sample_id,label"
+    }
+  ],
+  "links": [
+    {
+      "id": "selected_sample_profile",
+      "intent": "Inspect labels represented among selected samples",
+      "source": "disagreement",
+      "target": "class_profile",
+      "kind": "condition",
+      "selection": {
+        "type": "ids",
+        "grain": "sample",
+        "key": "sample_id"
+      },
+      "mapping": {
+        "cardinality": "one-to-many",
+        "rule": "Join sample_id; deduplicate sample-label pairs",
+        "missing": "Count unmatched sample IDs and disclose exclusion"
+      },
+      "operator": "aggregate",
+      "combine": "replace",
+      "population": {
+        "base": "All eligible samples in example-fixture-v1",
+        "denominator": "Unique selected eligible samples; label memberships separately counted",
+        "self_filter": "Selection filters class profile; source overview retains context"
+      },
+      "invariants": [
+        "Pinned cohort A retains IDs and dataset version",
+        "Shared color meaning and scale"
+      ],
+      "empty_policy": "active empty selection yields no-match state; none clears this link only",
+      "feedback": "Selected sample count, membership count, conditions and no-match indicator",
+      "undo": "Restore prior selection and reference snapshot",
+      "event_policy": "One transaction per input; render updates do not dispatch input events",
+      "async_policy": "Ignore result whose state/data/query version differs from current request",
+      "computation": "stored-query",
+      "tests": [
+        {
+          "action": "Select s1,s2; s1 has L1, s2 has L1,L2",
+          "expected": "2 selected samples, 3 unique memberships; L1 2/2, L2 1/2"
+        }
+      ]
+    }
+  ]
+}
